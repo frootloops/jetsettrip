@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Jetsettrip - Ваш персональный travel-ассистент</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./files/icon.png">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Send a text message to get help with planning and booking your travels.">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bradley - Your Personal Travel Assistant">
+    <meta name="twitter:description" content="Send a text message to get help with planning and booking your travels.">
+    <meta property="og:title" content="Bradley - Your Personal Travel Assistant">
+    <meta name="og:description" content="Send a text message to get help with planning and booking your travels.">
+    <meta property="og:image" content="http://bradleyapp.com/files/social.png">
+    <meta name="twitter:image" content="http://bradleyapp.com/files/social.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
+
+    <!-- J-Query -->
+    <script src="./files/jquery.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./files/bootstrap.min.css">
+    <link rel="stylesheet" href="./files/beta.css">
+    <link rel="stylesheet" href="./files/emoji.css">
+
+    <style>
+    * {
+        margin:0;
+        padding:0;
+        box-sizing:border-box; }
+    body {
+        text-align:center; }
+    .questions {
+        position:relative;
+        text-align:left;
+        max-width:800px;
+        padding-top:40px;
+        padding-left:5%;
+        padding-right:5%;
+        padding-bottom:50px;
+        margin:auto;
+        font-size:17px; }
+    h2 {
+        font-family: "Lato";
+        font-size:30px;
+        font-weight:700; }
+    .contents {
+        position:relative;
+        text-align:center;
+        height:2600px;
+        max-width:none;
+        font-size:19px;
+        border-bottom:1px solid;
+        border-color:#e8e8e8; }
+    .max-width {
+        max-width:44em;
+        display:block;
+        margin:0 auto;
+        z-index:1;
+        position:relative; }
+    .contents .max-width {
+        position:absolute;
+        top:50%;
+        width:100%;
+        left:50%;
+        transform: translateY(-50%) translateX(-50%);
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        -ms-transform: translateY(-50%) translateX(-50%);
+        -moz-transform: translateY(-50%) translateX(-50%); }
+    .balloon {
+        border-radius:0.5em;
+        display:inline-block;
+        text-align:left;
+        padding:0.75em;
+        min-width:20em;
+        max-width:20em;	}
+    .user {
+        background-color:#2096fc;
+        float:right; }
+    .bradley {
+        background-color:#e5e5ea;
+        float:left; }
+    .top .balloon {
+        background-color:rgba(255,255,255,0.85); }
+    .message {
+        display:inline-block;
+        vertical-align:bottom;
+        margin-bottom:1em;
+        z-index:1;
+        padding:0.25em;
+        position:relative; }
+    .message.right {
+        float:right; }
+    .message.left {
+        float:left;	}
+    .photo {
+        background-color:#fff;
+        width:3em;
+        height:3em;
+        border-radius:100%;
+        display:inline-block;
+        vertical-align:bottom;
+        margin-left:0.25em;
+        margin-right:0.25em;	}
+    .msgbradley .photo {
+        float:left;
+        background-image:url('./files/bradley.png');
+        background-size:cover;
+        background-position:center;	}
+    .msguser .photo {
+        background-image:url('./files/user.png');
+        background-size:cover;
+        -position:center; }
+    .name {
+        color:#ff4742;
+        font-weight:700; }
+    .text {
+        color:#000;
+        line-height:1.5; }
+    .text-user {
+        color:#fff;
+        line-height:1.5; }
+    .text img {
+        max-width:250px;
+        width:100%;
+        border-radius:5px;
+        display:block;
+        margin-top:1em;
+        margin-bottom:0.5em;
+        }
+    .clear {
+        clear:both; }
+        @media (min-width:600px) {
+    .message.first {
+        width:100%;	}
+    .balloon.first {
+        max-width:23em;
+        width:100%;	}
+    }
+
+    @media (min-width: 768px) { /* Desktop */
+    .col-uneven-right {
+        width: 55%; }
+    .col-uneven-left {
+        width: 45%; }
+    .modal-body h5 {
+        font-size:38px; }
+    .modal-body h6 {
+        font-size:49px; }
+    .modal-body .sub {
+        font-size:15px; }
+    }
+
+    @media (min-width:600px) and (max-width: 768px) { /* iPad */
+    .contents {
+        font-size:16px;
+        height:2250px; }
+    .contents .max-width {
+        top:1130px; }
+    .modal-body h5 {
+        font-size:38px; }
+    .modal-body h6 {
+        font-size:49px; }
+    .modal-body .sub {
+        font-size:15px; }
+    }
+
+    @media (max-width:600px) {	/* iPhone 6 */
+    .balloon {  min-width:0; }
+    .message {	margin:0;	width:90%;	margin-bottom:1em;	}
+    .contents:first-child {	padding:0;	}
+    .cta.first {	margin-bottom:25vh;	}
+    .contents {
+        font-size:14px;
+        height:1970px; }
+    .contents .max-width {
+        top:960px; }
+    .modal-body h5 {
+        font-size:38px; }
+    .modal-body h6 {
+        font-size:49px; }
+    .modal-body .sub {
+        font-size:15px; }
+    }
+
+    @media (max-width:370px) {  /* iPhone 5 */
+    .balloon {
+        max-width:16em; }
+    .contents {
+        height:2120px; }
+    .contents .max-width {
+        top:1040px; }
+    .modal-body h5 {
+        font-size:33px; }
+    .modal-body h6 {
+        font-size:41px; }
+    .modal-body .sub {
+        font-size:13px; }
+    button {
+        margin-top:10px; }
+    }
+
+    .modal-body h5 {
+        color:#333;
+        font-family:Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+        text-align:center;
+        margin:30px 0 14px; }
+    .modal-body h6 {
+        color:#2095FC;
+        text-shadow:1px 1px 0px #003665;
+        font-family:Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+        text-align:center;
+        margin:14px 0; }
+    .modal-body .sub {
+        font-weight:400;
+        font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+        text-align:center;
+        font-style:italic;
+        margin:0; }
+    button {
+        border:none;
+        background-color:white;
+    }
+    .modal-title {
+        text-align:left;
+        font-size:18px;
+        color:#333;
+    }
+    .modal-body {
+        text-align:left;
+        font-size:16px;
+    }
+    .modal-body p {
+        margin:10px 0;
+    }
+    .modal-dialog {
+      padding-top: 10%;
+    }
+    </style>
+
+</head>
+<body onload="document.body.style.opacity='1'" style="opacity: 1; zoom: 1;">
+<div class="bg" id="bg"></div>
+<div class="outer">
+
+    <!-- Intro -->
+    <div class="container-fluid splashpage-root">
+        <div class="row main-row">
+
+            <div class="col-xs-12 col-sm-6 col-uneven-right" id="greetingContainer">
+                <div class="greeting col-xs-12 col-lg-10">
+                    <img class="hidden-xs" id="imgBradley" style="width:150px" src="./files/head.png">
+                    <h2>Планируете поездку?</h2>
+                    <h4><a href="sms:+7-999-980-8630">Напишите нам</a> и мы поможем с планированием и бронированием ваших поездок.</h4>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-uneven-left" id="screenshot-container">
+                <div id="screenshot">
+                    <img id="bradley-screenshots" src="./files/iphone.png">
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-uneven-right" id="email-input">
+                <div class="splashpage-email-input col-xs-12 col-md-12 col-lg-10">
+                    <div class="modal-body">
+                      <h5>Напиши нам:</h5>
+                      <h6>+7 999 980-8630</h6>
+                      <p class="sub">Отправь "<strong style="color:#2095FC">Привет</strong>" на этот номер для начала.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Conversation -->
+    <div class="contents">
+        <div class="max-width">
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Здравствуйте! Я - Ваш пресональный travel-асистент. Я могу забронировать отель, найти перелет или просто порекомендовать что-то. Чем я могу вам помочь?</i></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message right msguser">
+                <div class="balloon user">
+                    <div class="text-user">Я прилетаю в Париж на следующей неделе. Ты можешь забронировать отель для меня?</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">У вас есть какие-либо особые требования или ограничения по бюджету?</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message right msguser">
+                <div class="balloon user">
+                    <div class="text-user">Хороший вид из окна и не дороже $300.</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Конечно! Shangri-La лучший отель что я видел. Цена - $273.<br><img src="./files/shangrila.jpg"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Вид просто потрясающий <i class="em em-blush"></i></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message right msguser">
+                <div class="balloon user">
+                    <div class="text-user">Вид и правда отличный! Давайте забронируем его.</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Готово! Я могу как-то еще Вам помочь?</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message right msguser">
+                <div class="balloon user">
+                    <div class="text-user">Можете найти ресторан для романтического ужина?</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Что насчет ужина на борту корабля? <i class="em em-boat"></i> Вы сможете наслождаться отличными видами Парижа во время ужина.<br><img src="./files/dinner.jpg"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">У них есть свободный столик на 20:30. Зарезервировать его для Вас?</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message right msguser">
+                <div class="balloon user">
+                    <div class="text-user">Да.</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Сделано. <i class="em em-ok_hand"></i> Есть еще планы?</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message right msguser">
+                <div class="balloon user">
+                    <div class="text-user">Я хочу отправиться в Барселону после Парижа. Можете найти недорогой перелет на этих выходных?</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Понял! Самый недорого перелт, что я сомг найти стоит $159. Вылет в эту пятницу. <i class="em em-airplane"></i> Подходит?</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message right msguser">
+                <div class="balloon user">
+                    <div class="text-user">Я рассчитвыл на сумму меньше $100.</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Без проблем. Хотете, что бы я связался с Вами когда появится билет с такой ценой? </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message right msguser">
+                <div class="balloon user">
+                    <div class="text-user">Да! Спасибо. <i class="em em-smile"></i></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="message left msgbradley">
+                <div class="photo bot"></div>
+                <div class="balloon bradley">
+                    <div class="text">Всегда рад помочь! <i class="em em-grin"></i></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="questions">
+        <center><h2>Вопросы и ответы</h2></center><br><br>
+        <strong>В: Сколько стоят ваши услуги?</strong><br><br>
+
+        Вы можете абсолютно бесплатно общаться с нашими ассистентами.<br><br>
+
+        <strong>В: Что вы можете сделать для меня?</strong><br><br>
+
+        Мы поможем со всеми аспетками ваших поездок: авиа. и жд билеты, страховка, отели и апартаменты - все это мы берем на себя.<br><br>
+
+        <b>В: Как быстро вы отвечаете на сообщения?</b><br><br>
+
+        ASAP! Мы доступны с утра и до позднего вечера. А совсем скоро мы будет работаться 24/7!
+    </div>
+
+
+    <!-- Footer -->
+
+    <footer class="footer">
+            <div class="footer-header">
+                <div class="footer-header-img" />
+                <div class="all-rights hidden-sm" />
+            </div>
+            <div class="footer-links" />
+    </footer>
+
+</div>
+
+<!-- JS -->
+<script src="./files/bootstrap.min.js"></script>
+
+<!--  Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68597414-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>
